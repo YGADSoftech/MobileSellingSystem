@@ -1,0 +1,96 @@
+﻿@using MobileSellingProject.Model
+@model IEnumerable<DepartmentModel>
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Manage Departments";
+}
+
+
+
+<table class="table table-bordered">
+    <thead>
+        <tr class="bg-primary">
+            <th colspan="2"><span class="glyphicon glyphicon-tags"></span> &nbsp; Departments [ <a id="create" href="/Department/CreateDep" style="color:white">Add New</a> ] </th>
+        </tr>
+        <tr class="bg-primary">
+            <th class="col-lg-7">Name</th>
+            <th class="col-lg-5">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (var m in Model)
+            {
+                <tr>
+                    <td class="col-lg-7">@m.Name</td>
+                    <td class="col-lg-5">
+                        <button type="button" class="btn btn-xs btn-warning dgbtn-edit" data-deptid="@m.Id"><span class="glyphicon glyphicon-edit"></span> </button>
+                        <button type="button" class="btn btn-xs btn-danger dgbtn-delete" data-deptid="@m.Id"><span class="glyphicon glyphicon-trash"></span> </button>
+                    </td>
+                </tr>
+            }
+
+        }
+
+    </tbody>
+</table>
+
+<div class="modal fade" id="mydialog" tabindex="-1" role="dialog" aria-labelledby="mydialog-label">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="mydialog-title">title here</h4>
+            </div>
+            <div id="mydialog-body" class="modal-body">
+                body here
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section myscripts{
+    <script type="text/javascript">
+        $("#create").click(function (evnt) {
+            evnt.preventDefault();
+            $.ajax({
+                url: "/Department/CreateDep"
+            }).done(function (data) {
+                $("#mydialog-title").html("Create Department");
+                $("#mydialog-body").html(data);
+                $("#mydialog").modal();
+            });
+        });
+        $(".dgbtn-edit").click(function (evnt) {
+            evnt.preventDefault();
+            var id = $(this).attr("data-deptid");
+            $.ajax({
+                url: "/Department/UpdateDep/" + id
+            }).done(function (data) {
+                $("#mydialog-title").html("Edit Department");
+                $("#mydialog-body").html(data);
+                $("#mydialog").modal();
+            });
+        });
+        $(".dgbtn-delete").click(function (event) {
+            event.preventDefault();
+            var did = $(this).data("deptid");
+            $.ajax(
+                {
+                    url: "/Department/Delete/" + did
+                }
+            ).done(function (deleteform) {
+                $("#mydialog-title").html("Do you want to delete this record?");
+                $("#mydialog-body").html(deleteform);
+                $("#mydialog").modal();
+            });
+        });
+
+    </script>
+
+
+}

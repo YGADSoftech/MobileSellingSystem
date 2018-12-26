@@ -1,0 +1,13 @@
+﻿@using MobileSellingProject.Model
+@model DepartmentModel
+
+@using (Html.BeginForm("UpdateDep", "Department", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-group" }))
+{
+    @Html.HiddenFor(m => m.Id)
+    <div class="container">
+        @Html.TextBoxFor(m => m.Name, Model.Name, new { @class = "form-control" })
+    </div>
+    <div class="form-control">
+        <button type="submit"> Save</button>
+    </div>
+}

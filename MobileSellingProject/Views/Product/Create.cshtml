@@ -1,0 +1,79 @@
+﻿@using (Html.BeginForm("Create", "Product", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-group" }))
+{
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#generalpane" data-toggle="tab">General</a></li>
+        <li><a href="#descriptionpane" data-toggle="tab">Description</a></li>
+        <li><a href="#imagespane" data-toggle="tab">Images</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="generalpane" class="tab-pane mytabpane active">
+            <div class="form-group form-inline">
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-tags"></span></span>
+                    @Html.DropDownList("Department", (IEnumerable<SelectListItem>)ViewBag.Departments, "Select Department", new { @class = "form-control" })
+                </div>
+                <div id="categorydiv" class="input-group">
+
+                </div>
+                <div id="subcategorydiv" class="input-group">
+
+                </div>
+
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-edit"></span></span>
+                    @Html.TextBox("Name", null, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group col-lg-3">
+                    <span class="input-group-addon"><strong>Rs.</strong></span>
+                    @Html.TextBox("Price", null, new { @class = "form-control", type = "number" })
+                </div>
+            </div>
+
+            <div class="form-group form-inline">
+                <div class="input-group col-lg-4">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                    @Html.TextBox("LaunchDate", null, new { @class = "form-control", type = "date" })
+                </div>
+            </div>
+            <div class="form-group form-inline">
+                <div class="input-group">
+                    <label style="padding-right:10px;">Sizes Offered: </label>
+                    @Html.ListBox("SizesOffered", (IEnumerable<SelectListItem>)ViewBag.Sizes, new { @class = "form-control", size = 6 })
+                </div>
+                <div class="input-group">
+                    <label style="padding-right:10px;">Colors Offered: </label>
+                    @Html.ListBox("colors", (IEnumerable<SelectListItem>)ViewBag.colors, new { @class = "form-control", size = 6 })
+                </div>
+            </div>
+
+            <div class="form-group form-inline">
+                <div>
+                    <label style="padding-right:10px;">Condition: </label>
+                </div>
+                @foreach (var item in (List<SelectListItem>)ViewBag.Condition)
+                {
+                    <label style="font-weight:normal;padding-right:10px;"> @Html.RadioButton("Condition", item.Value, item.Selected) @item.Text</label>
+                }
+            </div>
+        </div>
+
+        <div id="descriptionpane" class="tab-pane mytabpane">
+            @Html.TextArea("Description", new { @class = "form-control", rows = 20, placeholder = "Advertisement Details" })
+        </div>
+        <div id="imagespane" class="tab-pane mytabpane">
+            <input id="file1" name="Photo1" type="file" />
+            <input id="file1" name="Photo2" type="file" />
+            <input id="file1" name="Photo3" type="file" />
+            <input id="file1" name="Photo4" type="file" />
+        </div>
+    </div>
+
+    <div class="form-group" style="margin:10px 0px;">
+        <button type="submit" class="btn btn-primary"> <span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
+        <button type="reset" class="btn btn-default"> <span class="glyphicon glyphicon-remove"></span> Cancel</button>
+    </div>
+}

@@ -1,0 +1,16 @@
+﻿@using MobileSellingProject.Model
+@model ProductModel
+
+@using (Html.BeginForm("UpdateProduct", "Product", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-group" }))
+{
+    @Html.HiddenFor(m => m.id)
+<div class="container">
+    @Html.TextBoxFor(m => m.name, Model.name, new { @class = "form-control" })
+    @Html.TextBoxFor(m => m.price, Convert.ToString(Model.price), new { @class = "form-control" })
+    @Html.LabelFor(model => model.imageUrl, new { @class = "control-label col-md-2" })
+    <input type="file" name="UploadImg"/>
+</div>
+ <div class="form-control">
+        <button type="submit"> Save</button>
+    </div>
+}

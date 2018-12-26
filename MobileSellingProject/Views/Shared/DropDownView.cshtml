@@ -1,0 +1,7 @@
+﻿
+@using MobileSellingProject.Model
+@model DropDownModel
+<div class="input-group">
+    <span class="input-group-addon"><span class="glyphicon glyphicon-tags"></span></span>
+    @Html.DropDownList(Model.Name, Model.Values, Model.Caption, new { @class = "form-control", id = Model.Id })
+</div>

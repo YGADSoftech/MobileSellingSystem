@@ -1,0 +1,11 @@
+﻿@using (Html.BeginForm("CreateDep", "Department", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-group" }))
+{
+<div class="container">
+    @Html.TextBox("abc", null, new { @class = "form-control", placeholder = "Department Name Here" })
+    <label>Select Picture For Department</label>
+    <input name="pic" type="file" />
+</div>
+    <button type="submit" class="form-control"> Save</button>
+
+
+}

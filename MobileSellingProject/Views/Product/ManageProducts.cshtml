@@ -1,0 +1,131 @@
+﻿@model IEnumerable<MobileSellingEntities.MobileShop.Products>
+@{
+    ViewBag.Title = "ManageProducts";
+}
+
+<h2>ManageProducts</h2>
+
+<div class="modal fade" id="mydialog" tabindex="-1" role="dialog" aria-labelledby="mydialog-label">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="mydialog-title"></h4>
+            </div>
+            <div class="modal-body" id="mydialog-body">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<table class="table table-bordered">
+    <thead>
+        <tr class="bg-primary">
+            <th colspan="5">Manage Products [<a id="addnewlink" href="/Product/Create" style="color:#fff;">  Add New  </a>]</th>
+        </tr>
+        <tr class="bg-primary">
+            <th class="col-lg-1">Image</th>
+            <th class="col-lg-4">Title</th>
+            <th class="col-lg-2">Price</th>
+            <th class="col-lg-5">Actions</th>
+        </tr>
+    </thead>
+    <tbody id="tablebody">
+        @foreach (var m in Model)
+        {
+            <tr>
+
+                <td class="col-lg-1">
+                    @if (m.Images.Count > 0)
+                    {
+                        <img src="@Url.Content(m.Images.ToList()[0].Url)" alt="@m.Name" class="dg-icon" style="width:25px; height:25px" />
+                    }
+                </td>
+                <td class="col-lg-4">@m.Name</td>
+                <td class="col-lg-2">@m.Price</td>
+                <td class="col-lg-5">
+                    <button class="btn btn-xs btn-success dgbtn-details" data-prodid="@m.Id"> <span class="glyphicon glyphicon-search"></span></button>
+                    <button class="btn btn-xs btn-warning dgbtn-edit" data-prodid="@m.Id"> <span class="glyphicon glyphicon-edit"></span></button>
+                    <button class="btn btn-xs btn-danger dgbtn-delete" data-prodid="@m.Id"> <span class="glyphicon glyphicon-trash"></span></button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="modal fade" id="mydialog" tabindex="-1" role="dialog" aria-labelledby="mydialog-label">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="mydialog-title">title here</h4>
+            </div>
+            <div id="mydialog-body" class="modal-body">
+                body here
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section myscripts{
+    <script type="text/javascript">
+        $("#addnewlink").click(function (evt) {
+            evt.preventDefault();
+            $.ajax({
+                url: "/Product/Create"
+            }).done(function (data) {
+                $("#mydialog-title").text("Add New Products");
+                $("#mydialog-body").html(data);
+                $("#mydialog").modal();
+                $("#Department").change(function () {
+                    var dId = $(this).val();
+                    $.ajax({
+                        url: "/Product/GetCategoriesToDropdown/" + dId
+                    }).done(function (c) {
+                        $("#categorydiv").html(c);
+                        $("#Category").change(function () {
+                            var cId = $(this).val();
+                            $.ajax({
+                                url: "/product/GetSubCategoriesToDropdown/" + cId
+                            }).done(function (s) {
+                                $("#subcategorydiv").html(s);
+                            });
+                        });
+                    });
+
+                });
+            });
+        }); 
+        $(".dgbtn-edit").click(function (evnt) {
+            evnt.preventDefault();
+            var id = $(this).attr("data-prodid");
+            $.ajax({
+                url: "/Product/UpdateProduct/" + id
+            }).done(function (data) {
+                $("#mydialog-title").html("Edit Product");
+                $("#mydialog-body").html(data);
+                $("#mydialog").modal();
+            });
+        });
+
+        $(".dgbtn-delete").click(function (event) {
+            event.preventDefault();
+            var did = $(this).data("prodid");
+            $.ajax(
+                {
+                    url: "/Product/Delete/" + did
+                }
+            ).done(function (deleteform) {
+                $("#mydialog-title").html("Do you want to delete this record?");
+                $("#mydialog-body").html(deleteform);
+                $("#mydialog").modal();
+            });
+        });
+
+     
+
+
+    </script>
+}

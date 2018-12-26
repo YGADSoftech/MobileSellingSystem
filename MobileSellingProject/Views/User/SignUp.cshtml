@@ -1,0 +1,154 @@
+﻿@using MobileSellingEntities.AddressFolder
+@using MobileSellingProject.Model
+@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+    AlertModel alert = TempData["alert"] as AlertModel;
+}
+<div class="container">
+    <div class="" style="background-color:rgba(77, 68, 68, 0.84)"><h3 style="color:white; padding:5px"><span class=" glyphicon glyphicon-user"></span> Register Here</h3></div>
+    <div class="col-md-12 form-group">
+        @if (alert != null)
+        {
+            @Html.Partial("~/Views/Shared/_Alert.cshtml", alert)
+        }
+        @using (@Html.BeginForm("SignUp", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="col-lg-6 col-sm-12">
+                        <h4>First Name</h4>
+
+                        @Html.TextBox("first", null, new { @class = "form-control center-block", placeholder = "Please Enter your First Name", id = "1st" })
+
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+
+                        <div>
+                            <h4>Last Name</h4>
+                            @Html.TextBox("last", null, new { @class = "form-control center-block", placeholder = "Please Enter Your Last Name", id = "7th" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="col-lg-6 col-sm-12">
+                        <h4>Date of Birth</h4>
+                        <div>
+                            @Html.TextBox("dob", null, new { @class = "form-control center-block", placeholder = "Select Your Date of Birth", type = "date", id = "6th" })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <h4>Contact</h4>
+                        <div>
+                            @Html.TextBox("Contact", null, new { @class = "form-control center-block", placeholder = "Enter Your Contact Number", id = "9th" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="col-lg-6 col-sm-12">
+                        <h4>Email Id</h4>
+                        <div>
+                            @Html.TextBox("email", null, new { @class = "form-control center-block", placeholder = "Enter Your Email Id", id = "2nd" })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <h4>Password</h4>
+                        <div>
+                            @Html.TextBox("pass", null, new { @class = "form-control center-block", placeholder = "Enter Your Password", type = "password", id = "3rd" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="col-lg-6 col-sm-12">
+                        <h4>Security Question</h4>
+                        <div>
+                            @Html.TextBox("que", null, new { @class = "form-control center-block", placeholder = "Enter Your Security Question", id = "4th" })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <h4>Security Answer</h4>
+                        <div>
+                            @Html.TextBox("ans", null, new { @class = "form-control center-block", placeholder = "Enter Your Security Answer", id = "5th" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+
+
+                    <div class="col-lg-6 col-sm-12">
+
+                        <h4>Street Address</h4>
+                        <div>
+                            @Html.TextBox("strtadrs", null, new { @class = "form-control center-block", placeholder = "Please Enter Your Street Address", id = "8th" })
+                        </div>
+                        <div>
+                            <label style="padding-top:10px">Add a DisplayPicture</label>
+                            <input type="file" name="DisplayPic" />
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <h4>Location</h4>
+                        <div id="DivForCountries">
+                            @Html.DropDownList("Country", (IEnumerable<SelectListItem>)ViewBag.countries, "Select Country", new { @class = "form-control", id = "Cnlist" })
+                        </div>
+
+
+                        <div id="DivForProvinces">
+
+                        </div>
+
+
+
+                        <div id="DivForCities">
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+           
+                <button id="signup" type="submit" class="btn btn-default form-inline center-block" style="background-color:rgba(77, 68, 68, 0.84); color:white; margin-top:30px ;font-size: 20px;border-radius: 10px; "><span class="glyphicon glyphicon glyphicon-log-in"></span> Register</button>
+                <label id="errorlable" style="color:rgba(255, 0, 0, 0.81)"></label>
+            
+        }
+    </div>
+        </div>
+@section myScript{
+    <script type="text/javascript">
+        $("#Cnlist").change(function () {
+            var cid = $(this).val();
+            $.ajax({
+                url: "/User/GetProvincesForDropDown/" + cid
+            }).done(function (Provinces) {
+                $("#DivForProvinces").html(Provinces);
+                $("#PList").change(function () {
+                    var pid = $(this).val();
+                    $.ajax({
+                        url: "/User/GetCitiesForDropDown/" + pid
+                    }).done(function (cities) {
+                        $("#DivForCities").html(cities);
+                    });
+                });
+            });
+        });
+
+
+
+    </script>
+    
+    
+    
+    }

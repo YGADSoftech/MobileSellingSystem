@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileSellingProject", "MobileSellingProject\MobileSellingProject.csproj", "{B4F8A1C0-D10D-4470-A93F-E19CFD4E262E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileSellingEntities", "MobileSellingEntities\MobileSellingEntities.csproj", "{1CBC1ACB-F3D2-4B06-BA1C-E4701963458F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B4F8A1C0-D10D-4470-A93F-E19CFD4E262E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4F8A1C0-D10D-4470-A93F-E19CFD4E262E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4F8A1C0-D10D-4470-A93F-E19CFD4E262E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4F8A1C0-D10D-4470-A93F-E19CFD4E262E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CBC1ACB-F3D2-4B06-BA1C-E4701963458F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CBC1ACB-F3D2-4B06-BA1C-E4701963458F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CBC1ACB-F3D2-4B06-BA1C-E4701963458F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CBC1ACB-F3D2-4B06-BA1C-E4701963458F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {55144096-260F-4B39-B43A-C5893C60B5E1}
+	EndGlobalSection
+EndGlobal
